@@ -9,6 +9,10 @@ export default class App extends Component {
        <Tree
         title="Location"
         handleMove={(item, newparent) => console.log(item, newparent)}
+        fieldNames={{
+          parentId: 'parentBucketId'
+        }
+        }
         columns={[
           {
             header: "Total",
@@ -28,19 +32,19 @@ export default class App extends Component {
             {
               id: 1,
               name: 'Australia',
-              parentId: 0,
+              parentBucketId: 0,
               netExpenses: '100',
               children: [
                 {
                   id: 2,
                   name: 'Victoria',
-                  parentId: 1,
+                  parentBucketId: 1,
                   netExpenses: '150',
                   children: [
                     {
                       id: 1,
                       name: 'Caroline Springs',
-                      parentId: 2,
+                      parentBucketId: 2,
                       netExpenses: '400',
                       children: []
                   }

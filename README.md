@@ -21,6 +21,56 @@ class Example extends React.Component {
   render () {
     return (
       <Tree
+        /**
+         * String
+         * Title for the tree
+         * */
+        title
+
+        /**
+         * Tree
+         * Data for the tree to display
+         * */
+        tree
+
+        /**
+         * Callback
+         * Exposes an icon to move rows. Callback fired on drop
+         * */
+        handleMove
+
+        /**
+         * Array of objects
+         * Columns to display additional data
+         * */
+        columns
+
+        /**
+         * Array of objects
+         * Icons that'll execute provided callbacks when clicked
+         * */
+        icons
+
+        /**
+         * Object
+         * Name of fields that contains required information
+         * Defaults
+         * - id: id
+         * - name: name
+         * - parentId: parentId
+         * */
+        fieldNames
+        />
+    )
+  }
+}
+```
+
+```tsx
+class Example extends React.Component {
+  render () {
+    return (
+      <Tree
         title="Category"
         tree={
           {

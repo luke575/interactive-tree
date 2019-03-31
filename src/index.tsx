@@ -9,6 +9,12 @@ interface IState {
   isHideChildren: boolean;
 }
 
+interface IFieldNames {
+  id?: string;
+  name?: string;
+  parentId?: string;
+}
+
 interface IProps {
   title: string;
   tree: ITree;
@@ -17,6 +23,7 @@ interface IProps {
   columns?: IColumn[];
   handleMove?: any;
   icons?: IIcon[];
+  fieldNames?: IFieldNames;
 }
 
 const INDENT_INCREMENT = 15;
@@ -64,13 +71,13 @@ class Tree extends React.Component<IProps, IState> {
   renderData() {
     const {
       state: { isHideChildren },
-      props: { isParentHidingMe, levelsDeep, columns, handleMove, tree, icons }
+      props: { isParentHidingMe, levelsDeep, columns, handleMove, tree, icons, fieldNames = {} }
     } = this;
 
     const leaf: ILeaf = {
-      id: tree.id,
-      name: tree.name,
-      parentId: tree.parentId
+      id: tree[fieldNames.id || 'id'],
+      name: tree[fieldNames.name || 'name'],
+      parentId: tree[fieldNames.parentId || 'parentId']
     };
 
     const caretSVG = isHideChildren ? caretRightSVG : caretDownSVG;
