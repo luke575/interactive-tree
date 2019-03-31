@@ -7,7 +7,6 @@ import styles from './styles.css';
 
 interface IState {
   isHideChildren: boolean;
-  cleanChildren: ITree[];
 }
 
 interface IFieldNames {
@@ -39,8 +38,7 @@ class Tree extends React.Component<IProps, IState> {
     super(props);
 
     this.state = {
-      isHideChildren: false,
-      cleanChildren: this.getCleanChildren(props.tree.children)
+      isHideChildren: !!props.levelsDeep,
     };
   }
 
@@ -48,9 +46,10 @@ class Tree extends React.Component<IProps, IState> {
    * Handle possibility that children may be undefined
    * Also sort tree so those with no children are placed at the bottom
    */
-  private getCleanChildren(children?:ITree[]) {
-    if(!children) return [];
-    
+  private getChildren(isSort: boolean = false) {
+    const children = this.props.tree.children || [];
+    if(!children.length || !isSort) return children;
+
     return children.sort((a, b) => {
       if ((a.children || []).length < (b.children || []).length) return 1;
       if ((a.children || []).length > (b.children || []).length) return -1;
@@ -68,10 +67,10 @@ class Tree extends React.Component<IProps, IState> {
         levelsDeep,
         isParentHidingMe
       },
-      state: { isHideChildren, cleanChildren }
+      state: { isHideChildren }
     } = this;
 
-    return cleanChildren.map((child: ITree, index: number) => (
+    return this.getChildren(true).map((child: ITree, index: number) => (
       <Tree
         {...Object.assign({}, this.props, {
           // Mutated props
@@ -86,7 +85,7 @@ class Tree extends React.Component<IProps, IState> {
 
   renderData() {
     const {
-      state: { isHideChildren, cleanChildren },
+      state: { isHideChildren },
       props: { isParentHidingMe, levelsDeep, columns, handleMove, tree, icons, fieldNames = {} }
     } = this;
 
@@ -97,7 +96,7 @@ class Tree extends React.Component<IProps, IState> {
     };
 
     let caretSVG = undefined;
-    if(cleanChildren.length) {
+    if(this.getChildren().length) {
       caretSVG = isHideChildren ? caretRightSVG : caretDownSVG;
     }
 
@@ -112,9 +111,7 @@ class Tree extends React.Component<IProps, IState> {
           leftIndent={levelsDeep * INDENT_INCREMENT}
           icons={icons}
           recordClicked={() => this.handleRecordClicked()}
-          handleMove={(item: any, newParent: any) =>
-            handleMove(item, newParent)
-          }
+          handleMove={handleMove}
         />
         {this.renderChildren()}
       </React.Fragment>
