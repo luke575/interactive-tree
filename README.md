@@ -48,6 +48,8 @@ class Example extends React.Component {
         /**
          * Array of objects
          * Icons that'll execute provided callbacks when clicked
+         * Icons have been tested with Font Awesome however can work with 
+         * other class based libraries
          * */
         icons
 
