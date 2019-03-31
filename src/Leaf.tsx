@@ -65,7 +65,9 @@ class Leaf extends React.Component<IProps, IState> {
         className={styles['name-column']}
         onClick={() => recordClicked()}
       >
-        <img src={caretSVG} className={styles.svg} />
+        <span>
+          <img src={caretSVG} className={styles.svg} />
+        </span>
         {leaf.name}
       </td>
     );

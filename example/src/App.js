@@ -42,12 +42,27 @@ export default class App extends Component {
                   netExpenses: '150',
                   children: [
                     {
-                      id: 1,
+                      id: 4,
+                      name: 'Melton',
+                      parentBucketId: 2,
+                      netExpenses: '400',
+                      children: [
+                        {
+                          id: 5,
+                          name: 'Brookfield',
+                          parentBucketId: 4,
+                          netExpenses: '400',
+                          children: []
+                        }
+                      ]
+                    },
+                    {
+                      id: 3,
                       name: 'Caroline Springs',
                       parentBucketId: 2,
                       netExpenses: '400',
-                      children: []
-                  }
+                      // children: []
+                    },
                   ]
                 }
               ]

@@ -7,6 +7,7 @@ import styles from './styles.css';
 
 interface IState {
   isHideChildren: boolean;
+  cleanChildren: ITree[];
 }
 
 interface IFieldNames {
@@ -36,9 +37,25 @@ class Tree extends React.Component<IProps, IState> {
 
   constructor(props: IProps) {
     super(props);
+
     this.state = {
-      isHideChildren: false
+      isHideChildren: false,
+      cleanChildren: this.getCleanChildren(props.tree.children)
     };
+  }
+
+  /**
+   * Handle possibility that children may be undefined
+   * Also sort tree so those with no children are placed at the bottom
+   */
+  private getCleanChildren(children?:ITree[]) {
+    if(!children) return [];
+    
+    return children.sort((a, b) => {
+      if ((a.children || []).length < (b.children || []).length) return 1;
+      if ((a.children || []).length > (b.children || []).length) return -1;
+      return 0;
+    });
   }
 
   private handleRecordClicked() {
@@ -48,14 +65,13 @@ class Tree extends React.Component<IProps, IState> {
   private renderChildren(): any {
     const {
       props: {
-        tree: { children },
         levelsDeep,
         isParentHidingMe
       },
-      state: { isHideChildren }
+      state: { isHideChildren, cleanChildren }
     } = this;
 
-    return children.map((child: ITree, index: number) => (
+    return cleanChildren.map((child: ITree, index: number) => (
       <Tree
         {...Object.assign({}, this.props, {
           // Mutated props
@@ -70,7 +86,7 @@ class Tree extends React.Component<IProps, IState> {
 
   renderData() {
     const {
-      state: { isHideChildren },
+      state: { isHideChildren, cleanChildren },
       props: { isParentHidingMe, levelsDeep, columns, handleMove, tree, icons, fieldNames = {} }
     } = this;
 
@@ -80,7 +96,10 @@ class Tree extends React.Component<IProps, IState> {
       parentId: tree[fieldNames.parentId || 'parentId']
     };
 
-    const caretSVG = isHideChildren ? caretRightSVG : caretDownSVG;
+    let caretSVG = undefined;
+    if(cleanChildren.length) {
+      caretSVG = isHideChildren ? caretRightSVG : caretDownSVG;
+    }
 
     return (
       <React.Fragment>

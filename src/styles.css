@@ -6,6 +6,10 @@
   display: flex;
 }
 
+.name-column > span {
+  width: 25px;
+}
+
 .right-align {
   text-align: right;
   width: 100px;

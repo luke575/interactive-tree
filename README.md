@@ -72,6 +72,22 @@ class Example extends React.Component {
     return (
       <Tree
         title="Category"
+        columns={[
+          {
+            header: "Total",
+            func: (leaf) => leaf.netExpenses
+          }
+        ]}
+        icons={[
+          {
+            class: "fas fa-leaf",
+            callback: (leaf) =>
+              console.log(`Add new leaf under: ${leaf.id}`)
+          }
+        ]}
+        fieldNames={{
+          parentId: 'parentBucketId'
+        }
         tree={
           {
             children: [
