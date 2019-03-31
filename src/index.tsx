@@ -123,9 +123,9 @@ class Tree extends React.Component<IProps, IState> {
       <table className={styles['tree-table']}>
         <thead>
           <tr>
-            <td style={{ fontWeight: "bold" }}>{this.props.title}</td>
+            <td className={styles['col-header']}>{this.props.title}</td>
             {(this.props.columns || []).map((column: any, index) => (
-              <td key={index} className={ styles['right-align']}>
+              <td key={index} className={`${styles['right-align']} ${styles['col-header']}`}>
                 {column.header}
               </td>
             ))}
