@@ -1,1 +1,21 @@
-/* add css styles here */
+.tree-table {
+  width: 100%;
+}
+
+.name-column {
+  display: flex;
+}
+
+.right-align {
+  text-align: right;
+  width: 100px;
+}
+
+.svg {
+  height: 16px;
+  padding: 0px 8px;
+}
+ 
+.highlight {
+  background-color: #bbcaff;
+}

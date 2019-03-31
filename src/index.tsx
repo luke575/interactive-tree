@@ -1,6 +1,9 @@
 import * as React from 'react'
 import { ITree, IIcon, IColumn, ILeaf } from "./interfaces";
 import Leaf from "./Leaf";
+import caretDownSVG from './assets/svg/caret-down.svg';
+import caretRightSVG from './assets/svg/caret-right.svg';
+import styles from './styles.css';
 
 interface IState {
   isHideChildren: boolean;
@@ -70,7 +73,7 @@ class Tree extends React.Component<IProps, IState> {
       parentId: tree.parentId
     };
 
-    const iconClassName = `fas fa-caret-${isHideChildren ? "right" : "down"}`;
+    const caretSVG = isHideChildren ? caretRightSVG : caretDownSVG;
 
     return (
       <React.Fragment>
@@ -78,7 +81,7 @@ class Tree extends React.Component<IProps, IState> {
           leaf={leaf}
           allData={tree}
           isHide={isParentHidingMe}
-          iconClassName={iconClassName}
+          caretSVG={caretSVG}
           columns={columns}
           leftIndent={levelsDeep * INDENT_INCREMENT}
           icons={icons}
@@ -94,12 +97,12 @@ class Tree extends React.Component<IProps, IState> {
 
   initTable() {
     return (
-      <table className="tree-table">
+      <table className={styles['tree-table']}>
         <thead>
           <tr>
             <td style={{ fontWeight: "bold" }}>{this.props.title}</td>
             {(this.props.columns || []).map((column: any, index) => (
-              <td key={index} className="right-align">
+              <td key={index} className={ styles['right-align']}>
                 {column.header}
               </td>
             ))}

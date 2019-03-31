@@ -1,5 +1,7 @@
 import * as React from 'react'
 import { ILeaf, IColumn, IIcon } from "./interfaces";
+import styles from './styles.css'; 
+import arrowsSVG from './assets/svg/arrows-alt.svg';
 
 interface IState {
   dragState: DRAG_STATES;
@@ -16,7 +18,7 @@ interface IProps {
   leaf: ILeaf;
   handleMove: any;
   recordClicked: any;
-  iconClassName: string;
+  caretSVG: any;
   columns?: IColumn[];
   icons?: IIcon[];
   isHide: boolean;
@@ -54,15 +56,16 @@ class Leaf extends React.Component<IProps, IState> {
 
   private renderName() {
     const {
-      props: { leftIndent, leaf, iconClassName, recordClicked }
+      props: { leftIndent, leaf, caretSVG, recordClicked }
     } = this;
 
     return (
       <td
         style={{ paddingLeft: `${leftIndent}px` }}
+        className={styles['name-column']}
         onClick={() => recordClicked()}
       >
-        <i className={iconClassName} />
+        <img src={caretSVG} className={styles.svg} />
         {leaf.name}
       </td>
     );
@@ -73,7 +76,7 @@ class Leaf extends React.Component<IProps, IState> {
       props: { allData, columns = [] }
     } = this;
     return columns.map((column: any, index: number) => (
-      <td key={index} className="right-align">
+      <td key={index} className={styles['right-align'] }>
         {column.func(allData)}
       </td>
     ));
@@ -84,11 +87,12 @@ class Leaf extends React.Component<IProps, IState> {
       props: { leaf, handleMove, icons = [] }
     } = this;
     return (
-      <td className="right-align icons">
+      <td className={styles['right-align']}>
         {!!leaf.parentId && handleMove && (
-          <i
+          <img 
+            src={arrowsSVG} 
+            className={styles.svg}
             id={leaf.id.toString()}
-            className={`fas fa-arrows-alt`}
             data-parentid={leaf.parentId}
             draggable={true}
             onDragStart={(ev: any) => {
@@ -96,7 +100,7 @@ class Leaf extends React.Component<IProps, IState> {
               ev.dataTransfer.setData("text", leaf.id);
             }}
             onDragEnd={() => this.setState({ dragState: DRAG_STATES.NORMAL })}
-          />
+            />
         )}
 
         {icons.map((icon: IIcon, index: number) => (
@@ -127,7 +131,7 @@ class Leaf extends React.Component<IProps, IState> {
 
     return (
       <tr
-        className={className}
+        className={styles[className]}
         style={inlineStyle}
         onDrop={(ev: any) => this.handleOnDrop(ev)}
         onDragOver={(ev: any) => ev.preventDefault()}
