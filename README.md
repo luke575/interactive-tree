@@ -15,12 +15,30 @@ npm install --save interactive-tree
 ```tsx
 import * as React from 'react'
 
-import MyComponent from 'interactive-tree'
+import Tree from 'interactive-tree'
 
 class Example extends React.Component {
   render () {
     return (
-      <MyComponent />
+      <Tree
+        title="Category"
+        tree={
+          {
+            children: [
+            {
+              id: 1,
+              name: 'Darmanin',
+              parentId: 0,
+              children: [
+                {
+                  id: 2,
+                  name: 'subLuke',
+                  parentId: 1,
+                  children: []
+                }
+              ]
+          }]}}
+      />
     )
   }
 }
