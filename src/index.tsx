@@ -10,9 +10,9 @@ interface IState {
 }
 
 interface IFieldNames {
-  id?: string;
-  name?: string;
-  parentId?: string;
+  id: string;
+  name: string;
+  parentId: string;
 }
 
 interface IProps {
@@ -20,10 +20,10 @@ interface IProps {
   tree: ITree;
   levelsDeep: number;
   isParentHidingMe: boolean;
-  columns?: IColumn[];
+  columns: IColumn[];
   handleMove?: any;
   icons?: IIcon[];
-  fieldNames?: IFieldNames;
+  fieldNames: IFieldNames;
 }
 
 const INDENT_INCREMENT = 15;
@@ -31,7 +31,13 @@ const INDENT_INCREMENT = 15;
 class Tree extends React.Component<IProps, IState> {
   public static defaultProps = {
     levelsDeep: 0,
-    isParentHidingMe: false
+    isParentHidingMe: false,
+    columns: [],
+    fieldNames: {
+      id: 'id',
+      name: 'name',
+      parentId: 'parentId',
+    }
   };
 
   constructor(props: IProps) {
@@ -86,13 +92,13 @@ class Tree extends React.Component<IProps, IState> {
   renderData() {
     const {
       state: { isHideChildren },
-      props: { isParentHidingMe, levelsDeep, columns, handleMove, tree, icons, fieldNames = {} }
+      props: { isParentHidingMe, levelsDeep, columns, handleMove, tree, icons, fieldNames }
     } = this;
 
     const leaf: ILeaf = {
-      id: tree[fieldNames.id || 'id'],
-      name: tree[fieldNames.name || 'name'],
-      parentId: tree[fieldNames.parentId || 'parentId']
+      id: tree[fieldNames.id],
+      name: tree[fieldNames.name],
+      parentId: tree[fieldNames.parentId]
     };
 
     let caretSVG = undefined;
@@ -124,7 +130,7 @@ class Tree extends React.Component<IProps, IState> {
         <thead>
           <tr>
             <td className={styles['col-header']}>{this.props.title}</td>
-            {(this.props.columns || []).map((column: any, index) => (
+            {(this.props.columns).map((column: any, index) => (
               <td key={index} className={`${styles['right-align']} ${styles['col-header']}`}>
                 {column.header}
               </td>
