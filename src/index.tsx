@@ -33,11 +33,6 @@ class Tree extends React.Component<IProps, IState> {
     levelsDeep: 0,
     isParentHidingMe: false,
     columns: [],
-    fieldNames: {
-      id: 'id',
-      name: 'name',
-      parentId: 'parentId',
-    }
   };
 
   constructor(props: IProps) {
@@ -96,9 +91,9 @@ class Tree extends React.Component<IProps, IState> {
     } = this;
 
     const leaf: ILeaf = {
-      id: tree[fieldNames.id],
-      name: tree[fieldNames.name],
-      parentId: tree[fieldNames.parentId]
+      id: tree[fieldNames.id] || tree.id,
+      name: tree[fieldNames.name] || tree.name,
+      parentId: tree[fieldNames.parentId] || tree.parentId
     };
 
     let caretSVG = undefined;

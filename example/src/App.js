@@ -11,8 +11,7 @@ export default class App extends Component {
         handleMove={(item, newparent) => console.log(item, newparent)}
         fieldNames={{
           parentId: 'parentBucketId'
-        }
-        }
+        }}
         columns={[
           {
             header: "Total",
