@@ -89,9 +89,10 @@ class Leaf extends React.Component<IProps, IState> {
       props: { leaf, handleMove, icons = [] }
     } = this;
     return (
-      <td className={styles['right-align']}>
+      <td className={`${styles['right-align']} icons`} >
         {!!leaf.parentId && handleMove && (
           <img 
+
             src={arrowsSVG} 
             className={styles.svg}
             id={leaf.id.toString()}
@@ -107,6 +108,7 @@ class Leaf extends React.Component<IProps, IState> {
 
         {icons.map((icon: IIcon, index: number) => (
           <i
+            id={`leaf-${leaf.id.toString()}-icon-${index}`}
             key={index}
             onClick={() => icon.callback(leaf)}
             className={icon.class}
@@ -133,6 +135,7 @@ class Leaf extends React.Component<IProps, IState> {
 
     return (
       <tr
+        id={`leaf-${leaf.id}`}
         className={styles[className]}
         style={inlineStyle}
         onDrop={(ev: any) => this.handleOnDrop(ev)}
