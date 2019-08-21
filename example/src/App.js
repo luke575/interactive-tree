@@ -7,6 +7,7 @@ export default class App extends Component {
     return (
       <div style={{width: '500px'}}>
        <Tree
+        id="my-tree-id"
         title="Location"
         handleMove={(item, newparent) => console.log(item, newparent)}
         fieldNames={{

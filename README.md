@@ -24,6 +24,7 @@ class Example extends React.Component {
     return (
       <Tree
         title="Categories"
+        id="categories-tree-id"
         tree={
           {
             children: [
@@ -122,6 +123,11 @@ class Example extends React.Component {
 > **Type**: *tree* <br/>
 **Mandatory**: Yes <br/>
 **Description**:  Data for the tree to display and use
+
+### id
+> **Type**: *string* <br/>
+**Mandatory**: No <br/>
+**Description**: Id for the whole tree
 
 ### handleMove
 > **Type**: *callback* (item, newparent) => {}<br/>

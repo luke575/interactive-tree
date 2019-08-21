@@ -16,6 +16,7 @@ interface IFieldNames {
 }
 
 interface IProps {
+  id: string;
   title: string;
   tree: ITree;
   levelsDeep: number;
@@ -121,7 +122,7 @@ class Tree extends React.Component<IProps, IState> {
 
   initTable() {
     return (
-      <table className={styles['tree-table']}>
+      <table id={this.props.id} className={styles['tree-table']}>
         <thead>
           <tr>
             <td className={styles['col-header']}>{this.props.title}</td>
